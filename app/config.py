@@ -11,9 +11,6 @@ load_dotenv()
 # Telegram Bot 配置
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', 'your_bot_token_here')
 
-# 数据库配置
-DATABASE_PATH = 'customer_service_bot.db'
-
 # 支付指导配置
 ALIPAY_QR_CODE = os.getenv('ALIPAY_QR_CODE', 'alipay_qr.png')  # 支付宝二维码图片路径
 WECHAT_QR_CODE = os.getenv('WECHAT_QR_CODE', 'wechat_qr.png')  # 微信二维码图片路径
@@ -68,26 +65,3 @@ WECHAT_GUIDE_MESSAGE = """💙 微信支付指导
 • 支付成功后请截图保存凭证
 • 如遇问题请联系客服微信：{CUSTOMER_SERVICE_WECHAT}"""
 
-# 管理员帮助信息
-ADMIN_HELP_MESSAGE = """
-🔧 管理员命令帮助
-
-基本命令：
-/admin - 显示管理员面板
-/help - 显示此帮助信息
-
-用户管理：
-/addadmin <用户ID> - 添加管理员
-/removeadmin <用户ID> - 移除管理员
-/listadmins - 列出所有管理员
-/stats - 显示系统统计
-
-注意：只有超级管理员才能添加/移除管理员。
-"""
-
-# 权限类型
-PERMISSION_TYPES = {
-    'member': '普通用户',
-    'admin': '管理员',
-    'super_admin': '超级管理员'
-}

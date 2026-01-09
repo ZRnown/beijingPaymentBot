@@ -5,7 +5,6 @@ from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 from .config import (
     TELEGRAM_BOT_TOKEN, ALIPAY_QR_CODE, WECHAT_QR_CODE
 )
-from .database import DatabaseManager
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -15,7 +14,6 @@ logger = logging.getLogger(__name__)
 
 class CustomerServiceBot:
     def __init__(self):
-        self.db = DatabaseManager()
         self.updater = None
         self.dispatcher = None
         self.initialized = False
@@ -40,18 +38,9 @@ class CustomerServiceBot:
         if not self.dispatcher:
             return
         self.dispatcher.add_handler(CommandHandler("start", self.start_command))
-        self.dispatcher.add_handler(CommandHandler("status", self.status_command))
         self.dispatcher.add_handler(CallbackQueryHandler(self.handle_callback))
 
     def start_command(self, update, context):
-        user = update.effective_user
-        telegram_id = user.id
-        self.db.create_user(
-            telegram_id=telegram_id,
-            username=user.username,
-            first_name=user.first_name,
-            last_name=user.last_name
-        )
         keyboard = [
             [InlineKeyboardButton("💚 支付宝", callback_data="payment_alipay")],
             [InlineKeyboardButton("💙 微信", callback_data="payment_wechat")],
@@ -65,44 +54,11 @@ class CustomerServiceBot:
 
 请您选择其中一种付款方式，点击进入，查看具体付款方式完成付款
 
-💡 完成付款后，您的申请将自动提交给管理员审核
-✅ 审核通过后，您将收到群组邀请链接
-
 如有问题请联系 @XXXX
 如不能及时回复，请加店主微信 xymh0923"""
 
         update.message.reply_text(message_text, reply_markup=reply_markup)
 
-    def status_command(self, update, context):
-        """查看用户申请状态"""
-        user = update.effective_user
-        telegram_id = user.id
-
-        user_status = self.db.get_user_status(telegram_id)
-
-        if not user_status:
-            update.message.reply_text("❌ 未找到您的申请记录，请先使用 /start 开始申请。")
-            return
-
-        status = user_status['status']
-        approved_at = user_status.get('approved_at', '未审核')
-        rejected_at = user_status.get('rejected_at', '未审核')
-        notes = user_status.get('notes', '无')
-
-        if status == 'pending':
-            status_text = "⏳ 您的申请正在审核中，请耐心等待..."
-        elif status == 'approved':
-            status_text = f"✅ 您的申请已通过审核！\n🕐 审核时间: {approved_at}\n💬 备注: {notes}"
-        elif status == 'rejected':
-            status_text = f"❌ 您的申请未通过审核\n🕐 审核时间: {rejected_at}\n💬 备注: {notes}"
-        else:
-            status_text = "❓ 未知状态"
-
-        update.message.reply_text(f"""📋 您的申请状态
-
-{status_text}
-
-💡 如有问题请联系管理员""")
 
 
     def handle_callback(self, update, context):

@@ -7,11 +7,6 @@ __pycache__/
 *$py.class
 *.so
 
-# 数据库文件
-*.db
-*.sqlite
-*.sqlite3
-payment_bot.db
 
 # 日志文件
 logs/
