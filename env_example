@@ -1,0 +1,33 @@
+# 环境变量配置示例
+# 复制此文件为 .env 并填写实际配置
+
+# Telegram Bot 配置
+# 从 @BotFather 获取机器人token
+TELEGRAM_BOT_TOKEN=your_bot_token_here
+
+# Telegram群组配置
+# 私密群组ID，格式为 -100xxxxxxxxxx
+PRIVATE_GROUP_ID=-1001234567890
+
+# 管理员配置
+# 超级管理员ID列表（多个用逗号分隔）
+# 超级管理员可以添加/移除其他管理员
+SUPER_ADMIN_IDS=123456789,987654321
+
+# 支付配置
+# 支付宝二维码图片路径（相对于项目根目录）
+ALIPAY_QR_CODE=alipay_qr.png
+# 微信二维码图片路径（相对于项目根目录）
+WECHAT_QR_CODE=wechat_qr.png
+# 支付宝口令红包代码
+ALIPAY_RED_ENVELOPE_CODE=你的支付宝口令红包代码
+
+# 客服联系方式
+# 店主微信号（用于无法及时回复时）
+CUSTOMER_SERVICE_WECHAT=xymh0923
+
+# 群组监控配置
+# 群组监控间隔（秒）
+MONITOR_INTERVAL=30
+# 踢出用户时的消息
+KICK_MESSAGE=您没有权限加入此群组。如需获得权限，请联系管理员。
