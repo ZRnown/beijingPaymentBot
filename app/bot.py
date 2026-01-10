@@ -54,7 +54,7 @@ class CustomerServiceBot:
 
 请您选择其中一种付款方式，点击进入，查看具体付款方式完成付款
 
-如有问题请联系 @XXXX
+如有问题请联系 @Landisliu
 如不能及时回复，请加店主微信 xymh0923"""
 
         update.message.reply_text(message_text, reply_markup=reply_markup)
@@ -152,7 +152,7 @@ class CustomerServiceBot:
 💡 完成付款后，您的申请将自动提交给管理员审核
 ✅ 审核通过后，您将收到群组邀请链接
 
-如有问题请联系 @XXXX
+如有问题请联系 @Landisliu
 如不能及时回复，请加店主微信 xymh0923"""
 
         query.message.reply_text(message_text, reply_markup=reply_markup)
